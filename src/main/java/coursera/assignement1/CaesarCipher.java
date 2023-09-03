@@ -1,19 +1,35 @@
 package coursera.assignement1;
 
-import edu.duke.FileResource;
-
 public class CaesarCipher {
-    public String encrypt(String input, int key) {
+
+    private String alphabet;
+    private String shiftedAlphabetOne;
+    private String  shiftedAlphabetTwo;
+
+    public CaesarCipher(int key) {
         key = validate(key);
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        shiftedAlphabetOne = alphabet.substring(key) +
+                alphabet.substring(0, key);
+    }
+
+    public CaesarCipher(int keyOne, int keyTwo) {
+        keyOne = validate(keyOne);
+        keyTwo = validate(keyTwo);
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        shiftedAlphabetOne = alphabet.substring(keyOne) +
+                alphabet.substring(0, keyOne);
+        shiftedAlphabetTwo = alphabet.substring(keyTwo) +
+                alphabet.substring(0, keyTwo);
+    }
+
+    public String encryptWithOneKey(String input) {
         StringBuilder encrypted = new StringBuilder(input);
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String shiftedAlphabet = alphabet.substring(key) +
-                                 alphabet.substring(0, key);
         for(int i = 0; i < encrypted.length(); i++) {
             char currChar = encrypted.charAt(i);
             int idx = alphabet.indexOf(Character.toUpperCase(currChar));
             if (idx != -1){
-                char newChar = shiftedAlphabet.charAt(idx);
+                char newChar = shiftedAlphabetOne.charAt(idx);
                 if (Character.isUpperCase(currChar)) {
                     encrypted.setCharAt(i, Character.toUpperCase(newChar));
                 } else {
@@ -24,15 +40,8 @@ public class CaesarCipher {
         return encrypted.toString();
     }
 
-    public String encryptTwoKeys(String input, int keyOne, int keyTwo) {
-        keyOne = validate(keyOne);
-        keyTwo = validate(keyTwo);
+    public String encryptWithTwoKeys(String input) {
         StringBuilder encrypted = new StringBuilder(input);
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String shiftedAlphabetOne = alphabet.substring(keyOne)+
-                alphabet.substring(0,keyOne);
-        String shiftedAlphabetTwo = alphabet.substring(keyTwo)+
-                alphabet.substring(0, keyTwo);
         for (int i = 0; i < encrypted.length(); i++) {
             char currChar = encrypted.charAt(i);
             int idx = alphabet.indexOf(Character.toUpperCase(currChar));
@@ -55,7 +64,7 @@ public class CaesarCipher {
     }
 
     private int validate(int key) {
-        if ( key % 26 != 0 && key != 13  && key > 0) {
+        if ( key % 26 != 0 && key != 13  && key >= 0) {
             return( key < 26 ) ? key : (key % 26);
         }
         throw new RuntimeException("This is not a valid encryption key: " + key);
