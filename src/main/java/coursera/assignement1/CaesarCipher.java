@@ -4,10 +4,11 @@ import edu.duke.FileResource;
 
 public class CaesarCipher {
     public String encrypt(String input, int key) {
+        key = validate(key);
         StringBuilder encrypted = new StringBuilder(input);
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String shiftedAlphabet = alphabet.substring(key)+
-                alphabet.substring(0,key);
+        String shiftedAlphabet = alphabet.substring(key) +
+                                 alphabet.substring(0, key);
         for(int i = 0; i < encrypted.length(); i++) {
             char currChar = encrypted.charAt(i);
             int idx = alphabet.indexOf(Character.toUpperCase(currChar));
@@ -24,6 +25,8 @@ public class CaesarCipher {
     }
 
     public String encryptTwoKeys(String input, int keyOne, int keyTwo) {
+        keyOne = validate(keyOne);
+        keyTwo = validate(keyTwo);
         StringBuilder encrypted = new StringBuilder(input);
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String shiftedAlphabetOne = alphabet.substring(keyOne)+
@@ -51,14 +54,14 @@ public class CaesarCipher {
         return encrypted.toString();
     }
 
-    public static void main(String[] args) {
-        CaesarCipher cypher = new CaesarCipher();
-        int key = 3;
-        FileResource fr = new FileResource();
-        String message = fr.asString();
-        System.out.println("Message : " + message);
+    private int validate(int key) {
+        if ( key % 26 != 0 && key != 13  && key > 0) {
+            return( key < 26 ) ? key : (key % 26);
+        }
+        throw new RuntimeException("This is not a valid encryption key: " + key);
+    }
 
-        System.out.println("Encrypted : " + cypher.encrypt(message, 15));
-        System.out.println("EncryptedTwo : " + cypher.encryptTwoKeys(message, 3, 21));
+    public static void main(String[] args) {
     }
 }
+
