@@ -15,26 +15,18 @@ public class CaesarCipher {
         shiftedAlphabetTwo = shiftBy(validate(keyTwo));
     }
 
-    public String encryptWithOneKey(String input) {
+    public String encrypt(String input) {
         StringBuilder encryptedMsg = new StringBuilder(input);
         for(int i = 0; i < encryptedMsg.length(); i++) {
             char currChar = encryptedMsg.charAt(i);
             int idx = ALPHABET.indexOf(Character.toUpperCase(currChar));
+            char newChar;
             if (idx != -1){
-                char newChar = shiftedAlphabetOne.charAt(idx);
-                setNewCharacter(currChar, newChar, encryptedMsg, i );
-            }
-        }
-        return encryptedMsg.toString();
-    }
-
-    public String encryptWithTwoKeys(String input) {
-        StringBuilder encryptedMsg = new StringBuilder(input);
-        for (int i = 0; i < encryptedMsg.length(); i++) {
-            char currChar = encryptedMsg.charAt(i);
-            int idx = ALPHABET.indexOf(Character.toUpperCase(currChar));
-            if (idx != -1) {
-                char newChar = (i % 2 == 0) ? shiftedAlphabetOne.charAt(idx) : shiftedAlphabetTwo.charAt(idx);
+                if (shiftedAlphabetTwo == null ) {
+                    newChar = shiftedAlphabetOne.charAt(idx);
+                } else {
+                    newChar = (i % 2 == 0) ? shiftedAlphabetOne.charAt(idx) : shiftedAlphabetTwo.charAt(idx);
+                }
                 setNewCharacter(currChar, newChar, encryptedMsg, i );
             }
         }

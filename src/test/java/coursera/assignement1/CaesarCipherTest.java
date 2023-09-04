@@ -51,21 +51,21 @@ public class CaesarCipherTest {
         @Test
         void encryptWithKeyLesserThan26() {
             cipher = new CaesarCipher(12);
-            assertEquals("Rdqq OMWQ ur kag omz pqodkbf ftue!", cipher.encryptWithOneKey("Free CAKE if you can decrypt this!"));
+            assertEquals("Rdqq OMWQ ur kag omz pqodkbf ftue!", cipher.encrypt("Free CAKE if you can decrypt this!"));
         }
 
         @DisplayName("Key is greater than 26")
         @Test
         void encryptWithKeyGreaterThan26() {
             cipher = new CaesarCipher(31);
-            assertEquals("Ymj hfpj nx f QNJ.", cipher.encryptWithOneKey("The cake is a LIE."));
+            assertEquals("Ymj hfpj nx f QNJ.", cipher.encrypt("The cake is a LIE."));
         }
 
         @DisplayName("Long string")
         @Test
         void encryptWithOneKeyTestString() {
             cipher = new CaesarCipher(17);
-            assertEquals("Wle Armr Wrtkj: Kyv crexlrxv nrj zezkzrccp trccvu Frb rwkvi re frb kivv kyrk jkffu flkjzuv Xfjczex'j fwwztv.", cipher.encryptWithOneKey("Fun Java Facts: The language was initially called Oak after an oak tree that stood outside Gosling's office."));
+            assertEquals("Wle Armr Wrtkj: Kyv crexlrxv nrj zezkzrccp trccvu Frb rwkvi re frb kivv kyrk jkffu flkjzuv Xfjczex'j fwwztv.", cipher.encrypt("Fun Java Facts: The language was initially called Oak after an oak tree that stood outside Gosling's office."));
         }
     }
 
@@ -75,22 +75,22 @@ public class CaesarCipherTest {
         @Test
         void encryptWithKeyLesserThan26() {
             cipher = new CaesarCipher(12, 25);
-            assertEquals("Rqqd BMJQ ue xat bmm cqbdxbs sthe!", cipher.encryptWithTwoKeys("Free CAKE if you can decrypt this!"));
+            assertEquals("Rqqd BMJQ ue xat bmm cqbdxbs sthe!", cipher.encrypt("Free CAKE if you can decrypt this!"));
         }
 
         @DisplayName("Key greater than 26")
         @Test
-        void encryptWithTwoKeysGreaterThan26() {
+        void encryptGreaterThan26() {
             cipher = new CaesarCipher(31, 45);
-            assertEquals("Yaj htpx bx f QBJ.", cipher.encryptWithTwoKeys("The cake is a LIE."));
+            assertEquals("Yaj htpx bx f QBJ.", cipher.encrypt("The cake is a LIE."));
         }
 
 
         @DisplayName("Long string with no E")
         @Test
-        void encryptWithTwoKeysLongString() {
+        void encryptLongString() {
             cipher = new CaesarCipher(12, 5);
-            assertEquals("Tn, pt daz bmsf m xtxquuau yaimd? U abz yfzd latp rqmaawe, ggy gmsmsm ux tgyeymspnzl.", cipher.encryptWithTwoKeys("Hi, do you want a lollipop today? I own many good flavors, but banana is outstanding."));
+            assertEquals("Tn, pt daz bmsf m xtxquuau yaimd? U abz yfzd latp rqmaawe, ggy gmsmsm ux tgyeymspnzl.", cipher.encrypt("Hi, do you want a lollipop today? I own many good flavors, but banana is outstanding."));
         }
 
     }

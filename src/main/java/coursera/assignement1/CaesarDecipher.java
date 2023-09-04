@@ -53,7 +53,7 @@ class CaesarDecipher {
         int key = getDecryptionKey(this.encryptedMsg);
 
         CaesarCipher cc = new CaesarCipher((26 - key));
-        String decrypted = cc.encryptWithOneKey(this.encryptedMsg);
+        String decrypted = cc.encrypt(this.encryptedMsg);
         return decrypted;
     }
 
@@ -64,7 +64,7 @@ class CaesarDecipher {
         int keyTwo = getDecryptionKey(strOdd.toString());
 
         CaesarCipher cc = new CaesarCipher((26 - keyOne), (26 - keyTwo));
-        return cc.encryptWithTwoKeys(encryptedMsg);
+        return cc.encrypt(encryptedMsg);
     }
 
     public static void main(String[] args) {}
