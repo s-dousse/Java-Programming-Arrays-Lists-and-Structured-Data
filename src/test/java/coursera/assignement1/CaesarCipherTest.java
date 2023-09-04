@@ -60,6 +60,13 @@ public class CaesarCipherTest {
             cipher = new CaesarCipher(31);
             assertEquals("Ymj hfpj nx f QNJ.", cipher.encryptWithOneKey("The cake is a LIE."));
         }
+
+        @DisplayName("Long string")
+        @Test
+        void encryptWithOneKeyTestString() {
+            cipher = new CaesarCipher(17);
+            assertEquals("Wle Armr Wrtkj: Kyv crexlrxv nrj zezkzrccp trccvu Frb rwkvi re frb kivv kyrk jkffu flkjzuv Xfjczex'j fwwztv.", cipher.encryptWithOneKey("Fun Java Facts: The language was initially called Oak after an oak tree that stood outside Gosling's office."));
+        }
     }
 
     @Nested
@@ -73,9 +80,18 @@ public class CaesarCipherTest {
 
         @DisplayName("Key greater than 26")
         @Test
-        void encryptWithKeyGreaterThan26() {
+        void encryptWithTwoKeysGreaterThan26() {
             cipher = new CaesarCipher(31, 45);
             assertEquals("Yaj htpx bx f QBJ.", cipher.encryptWithTwoKeys("The cake is a LIE."));
         }
+
+
+        @DisplayName("Long string with no E")
+        @Test
+        void encryptWithTwoKeysLongString() {
+            cipher = new CaesarCipher(12, 5);
+            assertEquals("Tn, pt daz bmsf m xtxquuau yaimd? U abz yfzd latp rqmaawe, ggy gmsmsm ux tgyeymspnzl.", cipher.encryptWithTwoKeys("Hi, do you want a lollipop today? I own many good flavors, but banana is outstanding."));
+        }
+
     }
 }

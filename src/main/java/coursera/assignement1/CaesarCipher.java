@@ -57,7 +57,6 @@ public class CaesarCipher {
         return ALPHABET.substring(key) + ALPHABET.substring(0, key);
     }
 
-    public static void main(String[] args) {
-    }
+    public static void main(String[] args) {}
 }
 
