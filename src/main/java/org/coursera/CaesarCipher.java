@@ -1,4 +1,4 @@
-package coursera.assignement1;
+package org.coursera;
 
 public class CaesarCipher {
 

@@ -1,4 +1,4 @@
-package coursera.assignement1;
+package org.coursera;
 
 class CaesarDecipher {
 

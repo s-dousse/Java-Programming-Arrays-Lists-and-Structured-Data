@@ -1,4 +1,4 @@
-package coursera.assignement1;
+package org.coursera;
 
 import org.junit.jupiter.api.*;
 
