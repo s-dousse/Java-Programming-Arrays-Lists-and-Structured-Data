@@ -7,8 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,45 +20,56 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class WordFrequenciesTest {
     WordFrequencies wordFreqs;
 
-    @BeforeEach
-    public void setUp() {
-        wordFreqs = new WordFrequencies();
+    @Nested
+    class getSanitisedList {
+        @DisplayName("Sanitizes one line")
+        @Test
+            void getSanitisedListTestOneLine() {
+                wordFreqs = new WordFrequencies("src/test/java/org/coursera/resources/testwordfreqs.txt");
+                List<String> actualList = wordFreqs.getSanitisedList();
+                List<String> expectedList = Arrays.asList("this", "is", "a", "test", "yes", "a", "test", "of", "a", "test", "test");
+
+                for (int i = 0; i < expectedList.size(); i++) {
+                    assertEquals(expectedList.get(i), actualList.get(i));
+                }
+            }
+
+        @DisplayName("Sanitizes small paragraph")
+        @Test
+        void getSanitisedListTestMultipleLines() {
+            wordFreqs = new WordFrequencies("src/test/java/org/coursera/resources/macbethSmall.txt");
+            List<String> actualList =  wordFreqs.getSanitisedList();
+
+            String str = null;
+            try {
+                str = Files.readString(Paths.get("src/test/java/org/coursera/resources/macbethResult.txt"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            List<String> expectedList = Arrays.asList(str.split("\\W+"));
+
+            for (int i = 0; i < expectedList.size(); i++) {
+                assertEquals(expectedList.get(i), actualList.get(i));
+            }
+        }
     }
 
     @Nested
-    class getSanitisedString{
-        @DisplayName("Sanitizes one line: removes all punctuation and turn all characters to lowercase")
+    class findUnique {
+        @DisplayName("Find unique words in one line")
         @Test
-            void getSanitisedListTestOneLine() {
-                String fileName = "src/test/java/org/coursera/resources/testwordfreqs.txt";
-                assertEquals("this is a test yes a test of a test test", wordFreqs.getSanitisedList(fileName).get(0));
-            }
+        void findUniqueTestOneLine() {
+            wordFreqs = new WordFrequencies("src/test/java/org/coursera/resources/testwordfreqs.txt");
+            wordFreqs.findUnique();
+            assertEquals(6, wordFreqs.getMyWords().size());
+        }
 
-        @DisplayName("Sanitizes small paragraph: removes all punctuation and turn all characters to lowercase")
+        @DisplayName("Find unique words in small paragraph")
         @Test
-        void getSanitisedListTestMultipleLines() {
-            String fileName = "src/main/java/org/coursera/resources/macbethSmall.txt";
-            List<String> result =  wordFreqs.getSanitisedList(fileName);
-
-            List<String> referenceList = new ArrayList<>();
-            try (Stream<String> stream = Files.lines(Paths.get("src/test/java/org/coursera/resources/macbethResult.txt"));) {
-                referenceList = stream
-                        .map(str -> str.replaceAll("\\p{Punct}", ""))
-                        .map(String::toLowerCase)
-                        .collect(Collectors.toList());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-//            for (String actualStr : result) {
-//                for (String expectedStr : referenceList) {
-//                    assertEquals(expectedStr, actualStr);
-//                }
-//            }
-
-            for (int i = 0; i < referenceList.size(); i++) {
-                assertEquals(referenceList.get(i), result.get(i));
-            }
+        void findUniqueTestSmallParagraph() {
+            wordFreqs = new WordFrequencies("src/test/java/org/coursera/resources/macbethSmall.txt");
+            wordFreqs.findUnique();
+            assertEquals(82, wordFreqs.getMyWords().size());
         }
     }
 }
