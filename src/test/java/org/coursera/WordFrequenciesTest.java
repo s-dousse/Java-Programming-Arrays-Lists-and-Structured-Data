@@ -72,4 +72,27 @@ public class WordFrequenciesTest {
             assertEquals(82, wordFreqs.getMyWords().size());
         }
     }
+
+    @Nested
+    class findIndexOfMax {
+        @DisplayName("Find the index of most frequent word in one line")
+        @Test
+        void findIndexOfMaxTestOneLine() {
+            wordFreqs = new WordFrequencies("src/test/java/org/coursera/resources/testwordfreqs.txt");
+            wordFreqs.findUnique();
+            int result = wordFreqs.findIndexOfMax();
+            assertEquals(3, result);
+            assertEquals("test", wordFreqs.getMyWords().get(result));
+        }
+
+        @DisplayName("Find the index of the most frequent word in a small paragraphe")
+        @Test
+        void findIndexOfMaxTestSmallParagraph() {
+            wordFreqs = new WordFrequencies("src/test/java/org/coursera/resources/macbethSmall.txt");
+            wordFreqs.findUnique();
+            int result = wordFreqs.findIndexOfMax();
+            assertEquals(0, result);
+            assertEquals("macbeth", wordFreqs.getMyWords().get(result));
+        }
+    }
 }

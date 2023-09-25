@@ -66,6 +66,18 @@ public class WordFrequencies {
         return list;
     }
 
+    public int findIndexOfMax() {
+        int max = myFrequencies.get(0);
+        int maxIndex = 0;
+        for(int k=0; k < myFrequencies.size(); k++){
+            if (myFrequencies.get(k) > max){
+                max = myFrequencies.get(k);
+                maxIndex = k;
+            }
+        }
+        return maxIndex;
+    }
+
     public List<String> getMyWords() {
         return this.myWords;
     }
