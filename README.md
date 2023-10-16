@@ -1,4 +1,7 @@
 # Java-Programming-Arrays-Lists-and-Structured-Data
+
+[View Coursera Certificate](https://coursera.org/share/688cbe6297445d573636fc06f91b213b) 🧑‍🎓
+
 Some of my projects for the Coursera course Java Programming: Arrays, Lists and Structured Data by Duke University
 
 ## Module 1 - Basic Cryptography, Breaking the Caesar Cipher and Object-Oriented Caesar Cipher
